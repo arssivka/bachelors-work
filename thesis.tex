@@ -1,3 +1,7 @@
+\title{Пояснительная записка}
+\author{Ивин А. Г.}
+\date{2015-05-10}
+
 \thispagestyle{empty}
 \documentclass[14pt,a4paper]{report}
 \usepackage[T2A]{fontenc}
@@ -9,6 +13,37 @@
 \usepackage{textcomp}
 \usepackage{pscyr}
 \usepackage{setspace}
+\usepackage{hyperref}
+
+% Настройка оглавления
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfil\normalfont\bfseries\MakeUppercase}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{28pt}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapfont}{\normalfont}   
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+% Шрифт заголовков глав и разделов
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\bfseries\centering}
+  {}{0pt}{}
+\titleformat{\section}
+  {\normalfont\sffamily\bfseries\centering}
+  {\thesection}{1em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{*8}
+
+% Отключение создания новой страницы для глав
+%\makeatletter
+%\renewcommand\chapter{\thispagestyle{plain}%
+%\global\@topnum\z@
+%\@afterindentfalse
+%\secdef\@chapter\@schapter}
+%\makeatother 
 
 \usepackage{geometry}
 \geometry{left=2cm}
@@ -19,9 +54,10 @@
 \frenchspacing
 \pagestyle{plain}
 
-\title{}
-\author{Ивин А. Г.}
-\date{2015-05-10}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+
 
 \begin{document}
     \include{thesis-title}
@@ -29,5 +65,6 @@
     \setcounter{page}{1}
     \tableofcontents
     \begin{spacing}{1.25}
+        \include{thesis-intro}
     \end{spacing}
 \end{document}
