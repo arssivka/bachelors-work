@@ -1,3 +1,4 @@
+\thispagestyle{empty}
 \documentclass[14pt,a4paper]{report}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -7,6 +8,7 @@
 \usepackage{amsfonts}
 \usepackage{textcomp}
 \usepackage{pscyr}
+\usepackage{setspace}
 
 \usepackage{geometry}
 \geometry{left=2cm}
@@ -23,5 +25,9 @@
 
 \begin{document}
     \include{thesis-title}
+    \include{thesis-control}
+    \setcounter{page}{1}
     \tableofcontents
+    \begin{spacing}{1.25}
+    \end{spacing}
 \end{document}
