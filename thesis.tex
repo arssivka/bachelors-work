@@ -15,6 +15,7 @@
 \usepackage{setspace}
 \usepackage{hyperref}
 \usepackage{indentfirst}
+\usepackage{listings}
 
 % Настройка оглавления
 \usepackage{tocloft}
@@ -30,12 +31,12 @@
 
 % Шрифт заголовков глав и разделов
 \usepackage{titlesec}
-\titleformat{\chapter}[display]
+\titleformat{\chapter}
   {\normalfont\sffamily\bfseries\centering}
-  {}{0pt}{}
+  {\thechapter\ }{0pt}{}
 \titleformat{\section}
   {\normalfont\sffamily\bfseries\centering}
-  {\thesection}{1em}{}
+  {\thesection\ }{0pt}{}
 \titlespacing*{\chapter}{0pt}{0pt}{*8}
 
 % Отключение создания новой страницы для глав
