@@ -62,13 +62,23 @@
 \usepackage{graphicx}
 \graphicspath{{images/}}
 
+\usepackage{courier}
+\lstset{
+    basicstyle = \fontsize{11}{13}\selectfont   \ttfamily,
+    keywordstyle = \bfseries,
+    keepspaces = true,
+    breaklines = true,
+    framextopmargin = 50pt,
+}
+
 \begin{document}
     \include{thesis-title}
     \include{thesis-control}
     \setcounter{page}{1}
     \tableofcontents
-    \begin{spacing}{1.25}
+    \begin{spacing}{1.5}
         \include{thesis-intro}
         \include{thesis-chapter1}
+        \include{thesis-chapter2}
     \end{spacing}
 \end{document}
