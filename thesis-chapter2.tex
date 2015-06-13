@@ -270,52 +270,54 @@ T^{1}_{r,3} \\
 
 Необходимо заметить, что операция вращения туловища вокруг оси $x$ изменяет ориентацию стопы в зависимости от ориентации этой стопы по оси $z$.
 
-Далее происходит расчет позиций отдельных моторов. Длины составных частей робота представлены в виде констант $thigh\_length$ (длина бедра), $calf\_length$ (длина голени), $ankle\_length$ (высота стопы).
+Далее происходит расчет позиций отдельных моторов. Длины составных частей робота представлены в виде констант $L$: длина бедра $L_{T}$, длина голени $L_{C}$, высота стопы $L_{A}$.
+
+Аббривеатуры индексов вычесленных значений для моторов $M$ соответствуют названиям моторов робота Darwin-OP в симуляционной среде Webots: наклон бедра относительно оси $x$ - $hy$, наклон бедра отногсительно оси $y$ - $hp$, разворот бедра - $hr$, коленный сустав - $k$, наклон стопы относительно оси $x$ - $ay$, наклон стопы относительно оси $y$ - $ap$
 
 Формулы для расчета отдельных моторов были получены путем экспертного расчета. Часть моторов для левой и правой ноги имеют зеркальную ориентацию и различаются положительным направлением угла вращения.
 
 Формулы расчета углов для моторов левой ноги приведены ниже:
 
 \begin{center}
-$M_{l,hip\_roll} = T^{2}_{l,3}$,
+$M_{l,hr} = T^{2}_{l,3}$,
 
-$M_{l,hip\_yaw} = \arctan \dfrac{F^{3}_{l,2} \cos T^{2}_{l,3} - F^{3}_{l,1} \sin T^{2}_{l,3}}{F^{3}_{l,3} - ankle\_length}$,
+$M_{l,hy} = \arctg \dfrac{F^{3}_{l,2} \cos T^{2}_{l,3} - F^{3}_{l,1} \sin T^{2}_{l,3}}{F^{3}_{l,3} - L_{A}}$,
 
-$M_{l,hip\_pitch} = \arctan \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - ankle\_length  } + \arccos \dfrac{  (F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + thigh\_length^{2} - calf\_length ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}}$,
+$M_{l,hp} = \arctg \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - L_{A}  } + \arccos \dfrac{  (F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}}$,
 
-$M_{l,knee} = -\pi + \arccos \dfrac{(thigh\_length ^ {2} + calf\_length ^ {2} - (F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2})} {2 thigh\_length} $
+$M_{l,k} = -\pi + \arccos \dfrac{(L_{T} ^ {2} + L_{C} ^ {2} - (F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2})} {2 L_{T}} $
 
-$M_{l,ankle_pitch} = -\pi + \arccos \dfrac{(thigh\_length ^ {2} + calf\_length ^ {2} - (F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2})} {2 thigh\_length} + \arctan \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - ankle\_length  } + \arccos \dfrac{  (F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + thigh\_length^{2} - calf\_length ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}} - T^{2}_{l,2}$,
+$M_{l,ap} = -\pi + \arccos \dfrac{(L_{T} ^ {2} + L_{C} ^ {2} - (F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2})} {2 L_{T}} + \arctg \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - L_{A}  } + \arccos \dfrac{  (F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}} - T^{2}_{l,2}$,
 
-$M_{l,ankle\_yaw} = \arctan \dfrac{F^{3}_{l,2} \cos T^{2}_{l,3} - F^{3}_{l,1} \sin T^{2}_{l,3}}{F^{3}_{l,3} - ankle\_length} + T^{2}_{l,1}$
+$M_{l,ay} = \arctg \dfrac{F^{3}_{l,2} \cos T^{2}_{l,3} - F^{3}_{l,1} \sin T^{2}_{l,3}}{F^{3}_{l,3} - L_{A}} + T^{2}_{l,1}$
 \end{center}
 
 Далее приведены формулы для расчета моторов на правой ноге ноге.
 
 \begin{center}
-$M_{r,hip\_roll} = T^{2}_{r,3}$,
+$M_{r,hr} = T^{2}_{r,3}$,
 
-$M_{r,hip\_yaw} = \arctan \dfrac{F^{3}_{r,2} \cos T^{2}_{r,3} - F^{3}_{r,1} \sin T^{2}_{r,3}}{F^{3}_{r,3} - ankle\_length}$,
+$M_{r,hy} = \arctg \dfrac{F^{3}_{r,2} \cos T^{2}_{r,3} - F^{3}_{r,1} \sin T^{2}_{r,3}}{F^{3}_{r,3} - L_{A}}$,
 
-$M_{r,hip\_pitch} = -\arctan \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - ankle\_length  } - \arccos \dfrac{  (F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + thigh\_length^{2} - carf\_rength ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}}$,
+$M_{r,hp} = -\arctg \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - L_{A}  } - \arccos \dfrac{  (F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}}$,
 
-$M_{r,knee} = \pi - \arccos \dfrac{(thigh\_rength ^ {2} + calf\_length ^ {2} - (F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2})} {2 thigh\_length} $
+$M_{r,k} = \pi - \arccos \dfrac{(L_{T} ^ {2} + L_{C} ^ {2} - (F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2})} {2 L_{T}} $
 
-$M_{r,ankle_pitch} = \pi - \arccos \dfrac{(thigh\_length ^ {2} + calf\_length ^ {2} - (F^{3}_{r,3} - ankre\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2})} {2 thigh\_length} -\arctan \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - ankle\_length  } - \arccos \dfrac{  (F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + thigh\_length^{2} - carf\_length ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}} + T^{2}_{r,2}$,
+$M_{r,ap} = \pi - \arccos \dfrac{(L_{T} ^ {2} + L_{C} ^ {2} - (F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2})} {2 L_{T}} -\arctg \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - L_{A}  } - \arccos \dfrac{  (F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}} + T^{2}_{r,2}$,
 
-$M_{r,ankle\_yaw} = \arctan \dfrac{F^{3}_{r,2} \cos T^{2}_{r,3} - F^{3}_{r,1} \sin T^{2}_{r,3}}{F^{3}_{r,3} - ankle\_length} + T^{2}_{r,1}$.
+$M_{r,ay} = \arctg \dfrac{F^{3}_{r,2} \cos T^{2}_{r,3} - F^{3}_{r,1} \sin T^{2}_{r,3}}{F^{3}_{r,3} - L_{A}} + T^{2}_{r,1}$.
 \end{center}
 
-Как было сказано ранее, наклон туловища вокруг оси $y$ будет добавлен к значениям моторов после основной группы вычислений. Таким образом вычисление моторов $M_{hip\_pitch}$ и $M_{hip\_roll}$, упомянутое выше, будет выглядеть следующим образом:
+Как было сказано ранее, наклон туловища вокруг оси $y$ будет добавлен к значениям моторов после основной группы вычислений. Таким образом вычисление моторов $M_{hp}$ и $M_{hr}$, упомянутое выше, будет выглядеть следующим образом:
 
 \begin{center}
-$M_{r,hip\_roll} = T^{2}_{r,3} + \chi \cos T^{2}_{r,3}$
+$M_{r,hr} = T^{2}_{r,3} + \chi \cos T^{2}_{r,3}$
 
-$M_{r,hip\_pitch} = -\arctan \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - ankle\_length  } - \arccos \dfrac{  (F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + thigh\_length^{2} - carf\_rength ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{r,3} - ankle\_length)^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}} + \chi \sin T^{2}_{r,3}$,
+$M_{r,hp} = -\arctg \dfrac{  F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}  }{  F^{3}_{r,3} - L_{A}  } - \arccos \dfrac{  (F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{r,3} - L_{A})^{2} + (F^{3}_{r,1} \cos T^{2}_{r,3} + F^{3}_{r,2} \sin T^{2}_{r,3}) ^ {2}}} + \chi \sin T^{2}_{r,3}$,
 
-$M_{l,hip\_roll} = T^{2}_{l,3} - \chi \sin T^{2}_{r,3}$,
+$M_{l,hr} = T^{2}_{l,3} - \chi \sin T^{2}_{r,3}$,
 
-$M_{l,hip\_pitch} = \arctan \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - ankle\_length  } + \arccos \dfrac{  (F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + thigh\_length^{2} - calf\_length ^ 2 }{ 2 thigh\_length \sqrt{(F^{3}_{l,3} - ankle\_length)^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}} - \chi \sin T^{2}_{r,3}$.
+$M_{l,hp} = \arctg \dfrac{  F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}  }{  F^{3}_{l,3} - L_{A}  } + \arccos \dfrac{  (F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}  + L_{T}^{2} - L_{C} ^ 2 }{ 2 L_{T} \sqrt{(F^{3}_{l,3} - L_{A})^{2} + (F^{3}_{l,1} \cos T^{2}_{l,3} + F^{3}_{l,2} \sin T^{2}_{l,3}) ^ {2}}} - \chi \sin T^{2}_{r,3}$.
 \end{center}
 
 Полученные значения уклов поворота $M$ передаются на соответствующие моторы робота.
